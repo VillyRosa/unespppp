@@ -47,7 +47,9 @@ export class LoginPage implements OnInit {
     const loadingCtrl = await this.loadingController.create({ message: 'Entrando . . .' });
     await loadingCtrl.present();
 
-    return await firstValueFrom(this.authService.auth(body))
+    await firstValueFrom(this.authService.auth(body))
+
+    return loadingCtrl.dismiss();
 
   }
 
