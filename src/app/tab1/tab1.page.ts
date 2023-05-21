@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-tab1',
@@ -8,10 +9,19 @@ import { Chart } from 'chart.js';
 })
 export class Tab1Page implements OnInit {
 
-  constructor() {}
-  
+  authUser: any;
 
-  ngOnInit() {
+  constructor(
+    private authService: AuthService
+  ) {
+
+  }
+  
+  async ngOnInit() {
+
+    this.authUser = await this.authService.getAuth();
+
+    console.log(this.authUser);
 
   }
   

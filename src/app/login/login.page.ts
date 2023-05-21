@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, NavController, ToastController } from '@ionic/angular';
-import { AuthServiceTsService } from '../services/auth-service.ts.service';
+import { AlertController, LoadingController, NavController, ToastController } from '@ionic/angular';
+import { AuthService } from '../services/auth.service';
+import { firstValueFrom, map } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -9,15 +10,23 @@ import { AuthServiceTsService } from '../services/auth-service.ts.service';
 })
 export class LoginPage implements OnInit {
 
-  form: any = {
-    username: undefined,
+  screen: 'login' | 'firstAcess' | 'resetPassword' = 'login'
+
+  loginObj: any = {
+    email: undefined,
     password: undefined
+  };
+
+  firstAcessObj: any = {
+    cpf: undefined,
+    email: undefined
   }
 
   constructor(
     private toastController: ToastController,
-    private readonly navCtrl: NavController,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private authService: AuthService,
+    private loadingController: LoadingController
   ) { 
 
   }
@@ -27,28 +36,23 @@ export class LoginPage implements OnInit {
 
   async login() {
 
-    if (this.form.username === undefined || this.form.user === '') return this.toastAlert('top', 'Preencha o campo usuário');
-    if (this.form.password === undefined || this.form.password === '') return this.toastAlert('top', 'Preencha o campo senha');
+    if (this.loginObj.email === undefined || this.loginObj.email === '') return this.toastAlert('top', 'Preencha o campo email');
+    if (this.loginObj.password === undefined || this.loginObj.password === '') return this.toastAlert('top', 'Preencha o campo senha');
 
     let body = {
-      username: this.form.username,
-      password: this.form.password
+      email: this.loginObj.email,
+      password: this.loginObj.password
     }
 
-    fetch('http://127.0.0.1/back-end/api.php', {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    })
-    .then((resp) => resp.json())
-    .then((data) => {
-      if (data.data) this.navCtrl.navigateForward('/');
-      if (!data.data) this.presentAlert();
-    })
-    .catch((err) => console.log(err))
+    const loadingCtrl = await this.loadingController.create({ message: 'Entrando . . .' });
+    await loadingCtrl.present();
 
+    return await firstValueFrom(this.authService.auth(body))
+
+  }
+
+  async firstAcess() {
+    
   }
 
   toggleType(input: string, icon: string) {

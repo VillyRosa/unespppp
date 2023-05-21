@@ -2,7 +2,7 @@
 
   <div class="align-center-container">
 
-    <form>
+    <form *ngIf="screen === 'login'">
 
       <ion-img src="./assets/images/logo-completa.png"></ion-img>
 
@@ -17,13 +17,13 @@
         <ion-item>
  
           <ion-input 
-           label="Usuário" 
+           label="Email" 
            labelPlacement="stacked" 
            type="text" 
-           id="user" 
-           name="user"
-           placeholder="Insira seu usuário"
-           [(ngModel)]="form.username">
+           id="email" 
+           name="email"
+           placeholder="Insira seu email"
+           [(ngModel)]="loginObj.email">
           </ion-input>
   
         </ion-item>
@@ -37,7 +37,7 @@
            id="password" 
            name="password"
            placeholder="Insira sua senha"
-           [(ngModel)]="form.password">
+           [(ngModel)]="loginObj.password">
           </ion-input>
   
           <ion-icon id="iconPassword" name="eye-off-outline" (click)="toggleType('password', 'iconPassword')"></ion-icon>
@@ -51,6 +51,65 @@
       </ion-list>
 
       <ion-button (click)="login()" expand="block">Entrar</ion-button>
+
+      <div class="actions">
+
+        <p routerLink="/tabs">Acessar como visitante</p>
+        <p (click)="screen = 'firstAcess'">Primeiro acesso</p>
+
+      </div>
+
+    </form>
+
+    <form *ngIf="screen === 'firstAcess'">
+
+      <ion-img src="./assets/images/logo-completa.png"></ion-img>
+
+      <div class="texts">
+        <h2>LOGIN</h2>
+        <p>Primeiro acesso</p>
+      </div>
+
+      <ion-list>
+        
+        <ion-item>
+ 
+          <ion-input 
+           label="CPF" 
+           labelPlacement="stacked" 
+           type="tel" 
+           id="cpf" 
+           name="cpf"
+           placeholder="000.000.000-00"
+           [(ngModel)]="firstAcessObj.cpf"
+           [brmasker]="{mask:'000.000.000-00', type: 'num', len:14}">
+          </ion-input>
+  
+        </ion-item>
+
+        <ion-item>
+ 
+          <ion-input 
+           label="Email" 
+           labelPlacement="stacked" 
+           type="email" 
+           id="firstAcessEmail" 
+           name="firstAcessEmail"
+           placeholder="email@provedor.com"
+           [(ngModel)]="firstAcessObj.email">
+          </ion-input>
+  
+        </ion-item>
+        
+      </ion-list>
+
+      <div class="alignNextButton">
+        <ion-button (click)="firstAcess()">Avançar
+          <ion-icon slot="end" name="arrow-forward"></ion-icon>
+        </ion-button>
+      </div>
+
+      <ion-button class="cancelButton" (click)="screen = 'login'" expand="block">Cancelar</ion-button>
 
     </form>
 

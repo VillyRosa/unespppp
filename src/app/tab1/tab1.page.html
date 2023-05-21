@@ -7,8 +7,8 @@
     </div>
 
     <div class="name-container">
-        <p>Olá,</p>
-        <p class="name">Villy Oliveira Rosa</p>
+        <p>{{authUser === undefined ? 'Seja bem vindo!' : 'Olá,'}}</p>
+        <p *ngIf="authUser !== undefined" class="name">{{authUser.Name}}</p>
     </div>
 
     <div class="align-center">
@@ -72,7 +72,7 @@
         </div>
       
         <div class="align-end help">
-            <div class="tutorial-button" title="Acesse nosso tutorial">
+            <div class="tutorial-button">
                 <ion-icon name="help-circle-outline"></ion-icon>
             </div>
         </div>

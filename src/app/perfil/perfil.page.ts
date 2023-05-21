@@ -22,7 +22,7 @@ export class PerfilPage implements OnInit {
   }
 
   leaveAcount() {
-    this.navCtrl.navigateForward('/login');
+    this.navCtrl.navigateForward('');
   }
 
 }
