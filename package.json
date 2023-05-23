@@ -26,6 +26,7 @@
     "@capacitor/keyboard": "^4.1.1",
     "@capacitor/status-bar": "4.1.1",
     "@ionic/angular": "^7.0.0",
+    "@types/googlemaps": "^3.43.3",
     "br-mask": "^0.0.10",
     "chart.js": "^4.2.1",
     "ionicons": "^6.0.3",
