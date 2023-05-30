@@ -10,13 +10,16 @@ import { LoginPage } from './login.page';
 
 import { BrMaskerModule } from 'br-mask';
 
+import { NgOtpInputModule } from 'ng-otp-input';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     LoginPageRoutingModule,
-    BrMaskerModule
+    BrMaskerModule,
+    NgOtpInputModule
   ],
   declarations: [LoginPage]
 })

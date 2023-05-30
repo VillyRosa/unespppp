@@ -39,6 +39,22 @@
                 }
             }
 
+            .texts2 {
+                margin-top: 20px;
+                margin-bottom: 40px;
+                color: black;
+                text-align: center;
+                p {
+                    color: #667085;
+                    font-weight: 500;
+                }
+
+                .spanReenviar {
+                    font-weight: 500;
+                    text-decoration: underline;
+                }
+            }
+
             ion-list {
                 width: 100%;
             
@@ -69,6 +85,14 @@
                     ion-input {
                         margin-bottom: 5px;
                     }
+
+                    .emailEsqueciSenha {
+                        margin-bottom: 0;
+                    }
+                }
+
+                .itemEmail {
+                    margin-bottom: 36px;
                 }
 
                 .horizontal-line {
@@ -96,7 +120,35 @@
                     }
                 }
 
+
+                .itemConfirm {
+                    margin: 24px 0;
+                }
+
             }
+
+            .regrasSenha{
+                color: #414650;
+                border: none;
+                background: transparent;
+            
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+                ion-item {
+                    border: none;
+                    margin: 0;
+                    font-size: 15px;
+
+                    p {
+                        margin-left: 5px;
+                    }
+                }
+
+            }
+
 
             .alignNextButton {
                 width: 100%;
@@ -120,6 +172,10 @@
                 --background: #7F56D9;
             }
 
+            .confirmButton {
+                margin-bottom: 20px;
+            }
+
             .actions {
                 width: 100%;
                 margin-top: 20px;
@@ -139,8 +195,43 @@
 
             }
 
+            .actions2 {
+                width: 100%;
+                margin-top: 20px;
+                text-align: center;
+
+                p {
+                    color: #667085;
+                }
+
+                .spanOutroEmail {
+                    font-weight: 530;
+                    color: #7F56D9;
+                    text-decoration: underline;
+                }
+
+            }
+
+            .actions3 {
+                width: 100%;
+                margin-top: 20px;
+                text-align: center;
+
+                p {
+                    font-weight: 530;
+                    color: #7F56D9;
+                    text-decoration: underline;
+                }
+
+            }
+
             .cancelButton {
                 --background: #D92D20;
+            }
+
+            ng-otp-input {
+                margin-top: 15px;
+                margin-bottom: 40px;
             }
 
         }

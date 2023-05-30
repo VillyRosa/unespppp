@@ -10,7 +10,7 @@ import { firstValueFrom, map } from 'rxjs';
 })
 export class LoginPage implements OnInit {
 
-  screen: 'login' | 'firstAcess' | 'resetPassword' = 'login'
+  screen: 'login' | 'firstAcess' | 'forgetPassword' | 'resetCodeEmail' | 'resetPassword' = 'login'
 
   loginObj: any = {
     email: undefined,
@@ -22,12 +22,29 @@ export class LoginPage implements OnInit {
     email: undefined
   }
 
+  //otp (codigo de validação)
+  config = {
+    length: 5,
+    allowNumbersOnly: true,
+    inputStyles: {
+      'width' : '50px',
+      'height' : '68px',
+      'color' : '#7F56D9',
+      'font-size' : '35px',
+      'font-family' : 'sans-serif',
+      'font-weight' : '600',
+      'background' : 'white',
+      'border' : 'solid 1px #D6BBFB',
+      'border-radius' : '4px'
+    }
+  }
+
   constructor(
     private toastController: ToastController,
     private alertController: AlertController,
     private authService: AuthService,
     private loadingController: LoadingController
-  ) { 
+  ) {
 
   }
 
@@ -54,7 +71,7 @@ export class LoginPage implements OnInit {
   }
 
   async firstAcess() {
-    
+
   }
 
   toggleType(input: string, icon: string) {
@@ -66,9 +83,9 @@ export class LoginPage implements OnInit {
 
       auxIcon.name = 'eye-outline';
       auxInput.type = 'text';
-      
+
     } else {
-      
+
       auxIcon.name = 'eye-off-outline';
       auxInput.type = 'password';
 
@@ -94,7 +111,7 @@ export class LoginPage implements OnInit {
       message: 'Usuário ou senha incorretos!',
       buttons: ['OK']
     });
-  
+
     await alert.present();
   }
 

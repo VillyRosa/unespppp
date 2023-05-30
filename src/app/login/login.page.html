@@ -13,41 +13,30 @@
       </div>
 
       <ion-list>
-        
+
         <ion-item>
- 
-          <ion-input 
-           label="Email" 
-           labelPlacement="stacked" 
-           type="text" 
-           id="email" 
-           name="email"
-           placeholder="Insira seu email"
-           [(ngModel)]="loginObj.email">
+
+          <ion-input label="Email" labelPlacement="stacked" type="text" id="email" name="email"
+            placeholder="Insira seu email" [(ngModel)]="loginObj.email">
           </ion-input>
-  
+
         </ion-item>
 
         <ion-item>
- 
-          <ion-input 
-           label="Senha" 
-           labelPlacement="stacked" 
-           type="password" 
-           id="password" 
-           name="password"
-           placeholder="Insira sua senha"
-           [(ngModel)]="loginObj.password">
+
+          <ion-input label="Senha" labelPlacement="stacked" type="password" id="password" name="password"
+            placeholder="Insira sua senha" [(ngModel)]="loginObj.password">
           </ion-input>
-  
-          <ion-icon id="iconPassword" name="eye-off-outline" (click)="toggleType('password', 'iconPassword')"></ion-icon>
+
+          <ion-icon id="iconPassword" name="eye-off-outline"
+            (click)="toggleType('password', 'iconPassword')"></ion-icon>
         </ion-item>
 
         <div class="horizontal-line">
           <ion-checkbox labelPlacement="end">Lembrar senha</ion-checkbox>
-          <p>Esqueci minha senha</p>
+          <p (click)="screen = 'forgetPassword'">Esqueci minha senha</p>
         </div>
-        
+
       </ion-list>
 
       <ion-button (click)="login()" expand="block">Entrar</ion-button>
@@ -57,6 +46,136 @@
         <p routerLink="/tabs">Acessar como visitante</p>
         <p (click)="screen = 'firstAcess'">Primeiro acesso</p>
 
+      </div>
+
+    </form>
+
+    <form *ngIf="screen === 'forgetPassword'">
+
+      <ion-img src="./assets/icons/esqueci-senha/cadeado.svg"></ion-img>
+
+      <div class="texts">
+        <h2>Encontre a sua conta</h2>
+        <p>Informe o seu Email. Nós te enviaremos as instruções para redefinir a sua senha.</p>
+      </div>
+
+      <ion-list>
+
+        <ion-item class="itemEmail">
+
+          <ion-icon id="iconEmail" name="mail-outline" style="opacity: 0.5;">
+          </ion-icon>
+
+          <ion-input class="emailEsqueciSenha" labelPlacement="stacked" type="text" id="email" name="email"
+            placeholder="exemplo@email.com" [(ngModel)]="loginObj.email">
+          </ion-input>
+
+        </ion-item>
+
+      </ion-list>
+
+      <ion-button (click)="screen = 'resetCodeEmail'" expand="block">Enviar</ion-button>
+
+      <div class="actions">
+
+        <p (click)="screen = 'login'">Voltar</p>
+        <p (click)="screen = 'firstAcess'">Primeiro acesso</p>
+
+      </div>
+
+    </form>
+
+    <form *ngIf="screen === 'resetCodeEmail'">
+
+      <ion-img src="./assets/icons/esqueci-senha/email.svg"></ion-img>
+
+      <div class="texts">
+        <h2>Verifique seu Email</h2>
+        <p>Para confirmar que é você, digite o código de verificação enviado.</p>
+      </div>
+
+      <ng-otp-input [config]="config"></ng-otp-input>
+
+      <ion-button (click)="screen = 'resetPassword'" expand="block">Confirmar</ion-button>
+
+      <div class="texts2">
+        <p>Não recebeu o Email? <span class="spanReenviar">Clique aqui para reenviar.</span></p>
+      </div>
+
+      <div class="actions2">
+
+        <p>Verifique sua caixa de spam, ou <span class="spanOutroEmail">tente outro endereço de email.</span></p>
+
+      </div>
+
+    </form>
+
+    <form *ngIf="screen === 'resetPassword'">
+
+      <ion-img src="./assets/icons/esqueci-senha/cadeado.svg"></ion-img>
+
+      <div class="texts">
+        <h2>Redefinir Senha</h2>
+        <p>Sua nova senha deve ser diferente da senha usada anteriormente.</p>
+      </div>
+
+      <ion-list>
+
+        <ion-item>
+
+          <ion-input label="Nova senha" labelPlacement="stacked" type="password" id="password" name="password"
+            placeholder="Insira sua senha">
+          </ion-input>
+
+          <ion-icon id="iconPassword" name="eye-off-outline"
+            (click)="toggleType('password', 'iconPassword')"></ion-icon>
+        </ion-item>
+
+        <ion-list class="regrasSenha">
+          
+          <ion-item>
+            <ion-img src="./assets/icons/esqueci-senha/invalid.svg"></ion-img>
+            <p>A senha deve ter pelo menos 8 caracteres</p>
+          </ion-item>
+
+          <ion-item>
+            <ion-img src="./assets/icons/esqueci-senha/invalid.svg"></ion-img>
+            <p>A senha deve ter pelo menos 1 número</p>
+          </ion-item>
+
+          <ion-item>
+            <ion-img src="./assets/icons/esqueci-senha/invalid.svg"></ion-img>
+            <p>A senha deve ter pelo menos 1 caracter especial</p>
+          </ion-item>
+
+          <ion-item>
+            <ion-img src="./assets/icons/esqueci-senha/invalid.svg"></ion-img>
+            <p>A senha deve ter pelo menos uma letra maiúscula</p>
+          </ion-item>
+
+          <ion-item>
+            <ion-img src="./assets/icons/esqueci-senha/invalid.svg"></ion-img>
+            <p>A senha deve ter pelo menos uma letra minúscula</p>
+          </ion-item>
+
+        </ion-list>
+
+        <ion-item class="itemConfirm">
+
+          <ion-input label="Confirme a nova senha" labelPlacement="stacked" type="password" id="password" name="password"
+            placeholder="Insira sua senha">
+          </ion-input>
+
+          <ion-icon id="iconPassword" name="eye-off-outline"
+            (click)="toggleType('password', 'iconPassword')"></ion-icon>
+        </ion-item>
+
+      </ion-list>
+
+      <ion-button class="confirmButton" (click)="screen = 'login'" expand="block">Confirmar</ion-button>
+
+      <div class="actions3">
+        <p>Cancelar</p>
       </div>
 
     </form>
@@ -71,36 +190,23 @@
       </div>
 
       <ion-list>
-        
+
         <ion-item>
- 
-          <ion-input 
-           label="CPF" 
-           labelPlacement="stacked" 
-           type="tel" 
-           id="cpf" 
-           name="cpf"
-           placeholder="000.000.000-00"
-           [(ngModel)]="firstAcessObj.cpf"
-           [brmasker]="{mask:'000.000.000-00', type: 'num', len:14}">
+
+          <ion-input label="CPF" labelPlacement="stacked" type="tel" id="cpf" name="cpf" placeholder="000.000.000-00"
+            [(ngModel)]="firstAcessObj.cpf" [brmasker]="{mask:'000.000.000-00', type: 'num', len:14}">
           </ion-input>
-  
+
         </ion-item>
 
         <ion-item>
- 
-          <ion-input 
-           label="Email" 
-           labelPlacement="stacked" 
-           type="email" 
-           id="firstAcessEmail" 
-           name="firstAcessEmail"
-           placeholder="email@provedor.com"
-           [(ngModel)]="firstAcessObj.email">
+
+          <ion-input label="Email" labelPlacement="stacked" type="email" id="firstAcessEmail" name="firstAcessEmail"
+            placeholder="email@provedor.com" [(ngModel)]="firstAcessObj.email">
           </ion-input>
-  
+
         </ion-item>
-        
+
       </ion-list>
 
       <div class="alignNextButton">
