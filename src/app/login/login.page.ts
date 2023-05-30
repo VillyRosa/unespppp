@@ -10,7 +10,7 @@ import { firstValueFrom, map } from 'rxjs';
 })
 export class LoginPage implements OnInit {
 
-  screen: 'login' | 'firstAcess' | 'forgetPassword' | 'resetCodeEmail' | 'resetPassword' = 'login'
+  screen: 'login' | 'firstAcess' | 'forgetPassword' | 'resetCodeEmail' | 'resetPassword' = 'login';
 
   loginObj: any = {
     email: undefined,
@@ -20,7 +20,7 @@ export class LoginPage implements OnInit {
   firstAcessObj: any = {
     cpf: undefined,
     email: undefined
-  }
+  };
 
   //otp (codigo de validação)
   config = {
@@ -37,7 +37,7 @@ export class LoginPage implements OnInit {
       'border' : 'solid 1px #D6BBFB',
       'border-radius' : '4px'
     }
-  }
+  };
 
   constructor(
     private toastController: ToastController,

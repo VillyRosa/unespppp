@@ -10,6 +10,10 @@ export class FunctionsService {
     private alertController: AlertController
   ) { }
 
+  getUrl() {
+    return 'http://localhost:3000/';
+  }
+
   async alert(header: string, subHeader: string, message: string) {
 
     const alert = await this.alertController.create({
