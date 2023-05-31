@@ -36,7 +36,7 @@ export class CasesService {
 
     this.headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${this.authService.getAuth().token}`
+      'Authorization': `Bearer ${authService.getAuth() !== undefined ? this.authService.getAuth().token : null}`
     });
 
   }

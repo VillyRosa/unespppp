@@ -8,7 +8,7 @@
 
     <div class="name-container">
         <p>{{authUser === undefined ? 'Seja bem vindo!' : 'Olá,'}}</p>
-        <p *ngIf="authUser !== undefined" class="name">{{authUser.Name}}</p>
+        <p *ngIf="authUser !== undefined" class="name">{{authUser.name}}</p>
     </div>
 
     <div class="align-center">
@@ -28,7 +28,7 @@
 
     <main>
 
-        <div class="card area">
+        <div *ngIf="authUser" class="card area">
             
             <!-- <ion-icon name="map-outline"></ion-icon> COLOCAR ESSE ÍCONE JUNTO DPS -->
             <ion-select placeholder="Selecione a área">
@@ -60,22 +60,22 @@
 
         </div>
         
-        <div class="card relatorios">
+        <div *ngIf="authUser" class="card relatorios">
     
             <h2>Relatórios</h2>
             <p>Quantidades de relatórios realizados</p>
     
             <div class="result">
-                <h2>56</h2>
+                <h2>{{cases.length}}</h2>
             </div>
     
         </div>
-      
-        <div class="align-end help">
-            <div class="tutorial-button">
-                <ion-icon name="help-circle-outline"></ion-icon>
-            </div>
-        </div>
+
+        <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+            <ion-fab-button size="small">
+              <ion-icon name="help-circle-outline"></ion-icon>
+            </ion-fab-button>
+        </ion-fab>
 
     </main>
 

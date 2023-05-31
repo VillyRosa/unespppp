@@ -28,12 +28,12 @@
             placeholder="Insira sua senha" [(ngModel)]="loginObj.password">
           </ion-input>
 
-          <ion-icon id="iconPassword" name="eye-off-outline"
-            (click)="toggleType('password', 'iconPassword')"></ion-icon>
+          <ion-icon id="iconPassword" name="eye-off-outline" (click)="toggleType('password', 'iconPassword')"></ion-icon>
+          
         </ion-item>
 
         <div class="horizontal-line">
-          <ion-checkbox labelPlacement="end">Lembrar senha</ion-checkbox>
+          <ion-checkbox labelPlacement="end">Lembrar login</ion-checkbox>
           <p (click)="screen = 'forgetPassword'">Esqueci minha senha</p>
         </div>
 

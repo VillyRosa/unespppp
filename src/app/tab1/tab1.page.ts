@@ -12,10 +12,11 @@ import { CasesService } from '../services/cases.service';
 export class Tab1Page implements OnInit {
 
   authUser: any;
+  cases: any = [];
 
   constructor(
     private authService: AuthService,
-    private cases: CasesService
+    private casesService: CasesService
   ) {
 
   }
@@ -26,9 +27,11 @@ export class Tab1Page implements OnInit {
 
     console.log(this.authUser);
 
-    await firstValueFrom(this.cases.get())
-    .then(data => console.log(data))
+    if (this.authUser) await firstValueFrom(this.casesService.get())
+    .then(data => this.cases = data)
     .catch(error => console.log(error))
+
+    console.log(this.cases);
 
   }
   

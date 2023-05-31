@@ -2,7 +2,7 @@
   <ion-toolbar>
 
     <ion-buttons slot="start">
-      <ion-back-button text=""></ion-back-button>
+      <ion-back-button defaultHref="/perfil" text=""></ion-back-button>
     </ion-buttons>
 
     <ion-title><ion-icon name="document-text-outline"></ion-icon>DADOS PESSOAIS</ion-title>
@@ -11,17 +11,6 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
-  <div *ngIf="showCalendar" class="shadow-align-center">
-    <ion-datetime #datetime presentation="date" [(ngModel)]="calendar" max="{{today}}">
-
-      <ion-buttons slot="buttons">
-        <ion-button color="danger" (click)="eventCalendar()">Cancelar</ion-button>
-        <ion-button color="primary" (click)="eventCalendar(true, datetime)">Confirmar</ion-button>
-      </ion-buttons>
-
-    </ion-datetime>
-  </div>
 
   <form>
 
@@ -37,8 +26,10 @@
          id="name" 
          name="name"
          placeholder="Nome completo"
+         [disabled]="authUser.name !== undefined"
          [(ngModel)]="form.name"
-         [brmasker]="{userCaracters: false, type: 'alfa'}">
+         [brmasker]="{userCaracters: false, type: 'alfa'}"
+        >
         </ion-input>
 
       </ion-item>
@@ -53,25 +44,10 @@
          name="cpf"
          type="text"
          placeholder="CPF"
+         [disabled]="authUser.cpf !== undefined"
          [(ngModel)]="form.cpf"
          [brmasker]="{mask:'000.000.000-00', type: 'num', len:14}"
          >
-        </ion-input>
-
-      </ion-item>
-      
-      <ion-item class="space">
-        <ion-icon name="calendar-clear-outline" (click)="eventCalendar()"></ion-icon>
-
-        <ion-input
-         label="Data de nascimento"
-         labelPlacement="stacked" 
-         type="text" 
-         id="date" 
-         name="date"
-         placeholder="DD/MM/AAAA"
-         [(ngModel)]="form.date"
-         [brmasker]="{mask:'00/00/0000', type: 'num', len:10}">
         </ion-input>
 
       </ion-item>

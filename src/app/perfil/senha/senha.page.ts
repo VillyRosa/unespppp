@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-senha',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./senha.page.scss'],
 })
 export class SenhaPage implements OnInit {
+
+  authUser: any;
 
   form: any = {
     password: '',
@@ -20,7 +23,13 @@ export class SenhaPage implements OnInit {
     special: false
   };
 
-  constructor() { }
+  constructor(
+    private authService: AuthService
+  ) { 
+
+    this.authUser = authService.getAuth();
+
+  }
 
   ngOnInit() {
   }
