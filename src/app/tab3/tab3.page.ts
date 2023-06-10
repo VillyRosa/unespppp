@@ -17,16 +17,17 @@ export class Tab3Page {
 
     if (mapEle) {
       const map = new google.maps.Map(mapEle, {
-       center: { lat: -21.2084, lng:  -50.4266 }, // Defina o centro do mapa como preferir
+        center: { lat: -21.2084, lng: -50.4266 }, // Defina o centro do mapa como preferir
         zoom: 12 // Defina o nível de zoom como preferir
       });
 
-      const kmlLayer = new google.maps.KmlLayer({
-        url: './src/assets/Meus lugares araçatuba.kml', // Substitua pelo caminho correto para o seu arquivo KML
-        map: map
-      });
+      const geojsonUrl = './assets/data/Meus_lugares_aracatuba.geojson'; // Substitua pelo caminho correto para o seu arquivo GeoJSON
+
+      const geojsonLayer = new google.maps.Data();
+      geojsonLayer.loadGeoJson(geojsonUrl);
+      geojsonLayer.setMap(map);
     }
   }
-  
- 
 }
+ 
+ 
