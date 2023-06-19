@@ -27,9 +27,15 @@ export class Tab1Page implements OnInit {
 
     console.log(this.authUser);
 
+    this.load();    
+
+  }
+
+  async load() {
+
     if (this.authUser) await firstValueFrom(this.casesService.get())
-    .then(data => this.cases = data)
-    .catch(error => console.log(error))
+      .then(data => this.cases = data)
+      .catch(error => console.log(error))
 
     console.log(this.cases);
 

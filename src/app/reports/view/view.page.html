@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Relatórios de casos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-list>
+    
+    <ion-card button *ngFor="let case of casesFilter">
+      
+      <ion-card-header>
+        <ion-card-title>Relatório</ion-card-title>
+        <ion-card-subtitle>Informações do relatório</ion-card-subtitle>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <div class="line">
+          <p>Status:</p>
+          <p>{{case.status}}</p>
+        </div>
+        <div class="line">
+          <p>Latitude:</p>
+          <p>{{case.latitude}}</p>
+        </div>
+        <div class="line">
+          <p>Longitude:</p>
+          <p>{{case.longitude}}</p>
+        </div>
+      </ion-card-content>
+
+    </ion-card>  
+
+  </ion-list>
+
+</ion-content>

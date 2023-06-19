@@ -3,11 +3,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { FunctionsService } from './functions.service';
 import { AuthService } from './auth.service';
+import { stringify } from 'querystring';
 
 interface createCase {
   latitude: number;
   longitude: number;
-  status: boolean;
+  status: string;
 }
 
 interface editCase {

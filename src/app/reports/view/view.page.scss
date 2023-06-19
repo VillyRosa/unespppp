@@ -1,0 +1,47 @@
+:host {
+
+    ion-list {
+        background-color: #EAECF5;
+    }
+
+    ion-card {
+        margin: 10px 0;
+        padding: 10px;
+        --background: #fff;
+
+        ion-card-header {
+          color: #000;  
+
+          ion-card-title {
+            --color: #333;
+          }
+
+          ion-card-subtitle {
+            --color: #666;
+          }
+
+        }
+
+        ion-card-content {
+            width: 100%;
+            margin-top: 10px;
+
+            gap: 5px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+
+            .line {
+                width: 100%;
+                text-transform: capitalize;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+        }
+
+    }
+
+}

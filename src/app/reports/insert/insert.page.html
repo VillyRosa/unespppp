@@ -1,0 +1,129 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Criar relatório</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding"> 
+
+  <form *ngIf="screen === 'adress'">
+
+    <h5>Informe o endereço do relatório</h5>
+
+    <ion-list>
+      
+      <ion-item>
+
+        <ion-input 
+         label="CEP"
+         labelPlacement="stacked"
+         fill="solid"
+         type="tel" 
+         id="cep" 
+         name="cep" 
+         placeholder="00000-000"
+         [brmasker]="{mask:'00000-000', type: 'num', len:9}"
+         [(ngModel)]="case.adress.cep"
+         (ngModelChange)="searchCep()">
+        </ion-input>
+
+      </ion-item>
+
+      <ion-item>
+
+        <ion-input 
+         label="Bairro"
+         labelPlacement="stacked" 
+         type="text" 
+         id="email" 
+         name="email" 
+         placeholder="Jardim Nova Amizade"
+         [(ngModel)]="case.adress.neighborhood">
+        </ion-input>
+
+      </ion-item>
+
+      <ion-item>
+
+        <ion-input 
+         label="Rua"
+         labelPlacement="stacked" 
+         type="text" 
+         id="street" 
+         name="street" 
+         placeholder="R. José Ferreira Fagundes"
+         [(ngModel)]="case.adress.street">
+        </ion-input>
+
+      </ion-item>
+
+      <ion-item>
+
+        <ion-input 
+         label="Número"
+         labelPlacement="stacked" 
+         type="number" 
+         id="number" 
+         name="number" 
+         placeholder="458"
+         [(ngModel)]="case.adress.number">
+        </ion-input>
+
+      </ion-item>
+
+    </ion-list>
+
+    <div class="buttons">
+
+      <div class="align-right blue">
+        <ion-button (click)="screen = 'status'">
+          Avançar
+          <ion-icon slot="end" name="arrow-forward"></ion-icon>
+        </ion-button>
+      </div>
+  
+      <div class="align-left red">
+        <ion-button>Cancelar</ion-button>
+      </div>
+
+    </div>
+
+  </form>
+
+  <form *ngIf="screen === 'status'">
+
+    <h5>Informações sobre o caso</h5>
+
+    <ion-list>
+      
+      <ion-item>
+        <ion-select label="Status do caso" placeholder="Status" name="status" [(ngModel)]="case.status">
+          <ion-select-option value="suspeito">Suspeito</ion-select-option>
+          <ion-select-option value="positivo">Positivo</ion-select-option>
+          <ion-select-option value="negativo">Negativo</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+    </ion-list>
+
+    <div class="buttons">
+
+      <div class="align-left blue">
+        <ion-button (click)="screen = 'adress'">
+          <ion-icon slot="start" name="arrow-back"></ion-icon>
+          Voltar
+        </ion-button>
+      </div>
+  
+      <div class="align-right white">
+        <ion-button (click)="saveCase()">Finalizar</ion-button>
+      </div>
+
+    </div>
+
+  </form>
+
+</ion-content>

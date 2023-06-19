@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable, catchError } from 'rxjs';
 import { FunctionsService } from './functions.service';
 import { NavController } from '@ionic/angular';
+// import { Storage } from '@ionic/storage';
 
 const headers = new HttpHeaders({
   'Content-Type': 'application/json'
@@ -16,15 +17,19 @@ interface ILogin {
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements OnInit {
 
-  private authUser: any;
+  authUser: any;
 
   constructor(
     public http: HttpClient,
     private functions: FunctionsService,
-    private readonly navCtrl: NavController
+    private readonly navCtrl: NavController,
   ) { }
+
+  ngOnInit(): void {
+    
+  }
 
   auth(login: ILogin, loading: any): Observable<any> {
 
@@ -35,8 +40,6 @@ export class AuthService {
         next: async data => {
           
           if (!data.message) {
-            
-            console.log(data);
 
             this.authUser = data;
 
