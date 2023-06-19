@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, LoadingController, NavController, ToastController } from '@ionic/angular';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { firstValueFrom, map } from 'rxjs';
 
 @Component({

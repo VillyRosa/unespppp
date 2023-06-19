@@ -9,16 +9,16 @@ const routes: Routes = [
     component: PerfilPage
   },
   {
-    path: 'informacoes',
-    loadChildren: () => import('./informacoes/informacoes.module').then( m => m.InformacoesPageModule)
+    path: 'password',
+    loadChildren: () => import('./password/password.module').then( m => m.PasswordPageModule)
   },
   {
-    path: 'senha',
-    loadChildren: () => import('./senha/senha.module').then( m => m.SenhaPageModule)
+    path: 'terms',
+    loadChildren: () => import('./terms/terms.module').then( m => m.TermsPageModule)
   },
   {
-    path: 'termos',
-    loadChildren: () => import('./termos/termos.module').then( m => m.TermosPageModule)
+    path: 'information',
+    loadChildren: () => import('./information/information.module').then( m => m.InformationPageModule)
   }
 ];
 

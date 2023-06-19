@@ -2,11 +2,11 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 declare var google: any;
 
 @Component({
-  selector: 'app-tab3',
-  templateUrl: 'tab3.page.html',
-  styleUrls: ['tab3.page.scss']
+  selector: 'app-map',
+  templateUrl: 'map.page.html',
+  styleUrls: ['map.page.scss']
 })
-export class Tab3Page {
+export class MapPage {
 
   @ViewChild('map', { static: false }) mapElement?: ElementRef;
 

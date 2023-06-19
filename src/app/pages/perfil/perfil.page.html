@@ -6,17 +6,17 @@
 
 <ion-content [fullscreen]="true">
    
-  <ion-item *ngIf="authUser" detail="true" routerLink="informacoes" class="space">
+  <ion-item *ngIf="authUser" detail="true" routerLink="information" class="space">
     <ion-icon name="document-text-outline"></ion-icon>
     <ion-label>Informações pessoais</ion-label>
   </ion-item>
 
-  <ion-item *ngIf="authUser" detail="true" routerLink="senha">
+  <ion-item *ngIf="authUser" detail="true" routerLink="password">
     <ion-icon name="lock-closed-outline"></ion-icon>
     <ion-label>Alterar senha</ion-label>
   </ion-item>
 
-  <ion-item detail="true" routerLink="termos" [class]="!authUser ? 'space' : ''">
+  <ion-item detail="true" routerLink="terms" [class]="!authUser ? 'space' : ''">
     <ion-icon name="information-circle-outline"></ion-icon>
     <ion-label>Termos e privacidade</ion-label>
   </ion-item>

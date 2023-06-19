@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { InformacoesPageRoutingModule } from './informacoes-routing.module';
+import { InformationPageRoutingModule } from './information-routing.module';
 
-import { InformacoesPage } from './informacoes.page';
+import { InformationPage } from './information.page';
 
 import { BrMaskerModule } from 'br-mask';
 
@@ -15,9 +15,9 @@ import { BrMaskerModule } from 'br-mask';
     CommonModule,
     FormsModule,
     IonicModule,
-    InformacoesPageRoutingModule,
+    InformationPageRoutingModule,
     BrMaskerModule
   ],
-  declarations: [InformacoesPage]
+  declarations: [InformationPage]
 })
-export class InformacoesPageModule {}
+export class InformationPageModule {}

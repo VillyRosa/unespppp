@@ -1,15 +1,15 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { firstValueFrom } from 'rxjs';
-import { CasesService } from '../services/cases.service';
+import { CasesService } from '../../services/cases.service';
 
 @Component({
-  selector: 'app-tab1',
-  templateUrl: 'tab1.page.html',
-  styleUrls: ['tab1.page.scss']
+  selector: 'app-dashboard',
+  templateUrl: 'dashboard.page.html',
+  styleUrls: ['dashboard.page.scss']
 })
-export class Tab1Page implements OnInit {
+export class DashboardPage implements OnInit {
 
   authUser: any;
   cases: any = [];

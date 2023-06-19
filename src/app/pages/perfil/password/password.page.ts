@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-senha',
-  templateUrl: './senha.page.html',
-  styleUrls: ['./senha.page.scss'],
+  selector: 'app-password',
+  templateUrl: './password.page.html',
+  styleUrls: ['./password.page.scss'],
 })
-export class SenhaPage implements OnInit {
+export class PasswordPage implements OnInit {
 
   authUser: any;
 

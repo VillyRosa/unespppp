@@ -4,11 +4,11 @@ import { LoadingController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-informacoes',
-  templateUrl: './informacoes.page.html',
-  styleUrls: ['./informacoes.page.scss'],
+  selector: 'app-information',
+  templateUrl: './information.page.html',
+  styleUrls: ['./information.page.scss'],
 })
-export class InformacoesPage implements OnInit {
+export class InformationPage implements OnInit {
 
   authUser: any;
 
