@@ -35,6 +35,9 @@ export class PerfilPage implements OnInit {
   }
 
   leaveAcount() {
+
+    window.localStorage.removeItem('login');
+
     this.navCtrl.navigateForward('');
   }
 

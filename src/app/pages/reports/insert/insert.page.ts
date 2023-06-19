@@ -53,7 +53,10 @@ export class InsertPage implements OnInit {
       .finally(() => loading.dismiss())
       .catch((err) => console.log(err))
 
-    if (resp.erro) return this.toastAlert('top', 'O cep informado é inválido!');
+    if (resp.erro) {
+      this.case.adress.cep = '';
+      return this.toastAlert('top', 'O cep informado é inválido!');
+    }
     
     this.case.adress.street = resp.logradouro;
     this.case.adress.neighborhood = resp.bairro;
@@ -82,8 +85,6 @@ export class InsertPage implements OnInit {
     this.case.latitude = result.lat;
     this.case.longitude = result.lng;
     delete this.case.adress;
-
-    console.log(this.case)
 
     // Enviar o caso para o back-end
 

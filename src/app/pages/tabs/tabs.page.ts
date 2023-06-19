@@ -14,7 +14,7 @@ export class TabsPage implements OnInit {
     private authService: AuthService
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.authUser = this.authService.getAuth();
   }
 

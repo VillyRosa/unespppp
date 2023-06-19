@@ -14,7 +14,8 @@ export class LoginPage implements OnInit {
 
   loginObj: any = {
     email: undefined,
-    password: undefined
+    password: undefined,
+    remember: false
   };
 
   firstAcessObj: any = {
@@ -49,6 +50,22 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
+
+    this.load();
+
+  }
+
+  async load() {
+    if (window.localStorage.getItem('login') !== undefined) {
+      let aux: any = window.localStorage.getItem('login');
+      if (aux !== null) {
+        aux = JSON.parse(aux);
+        if (aux) {
+          aux.remember = true;
+          await firstValueFrom(this.authService.login(aux, 'awd'));
+        }
+      }
+    }
   }
 
   async login() {
@@ -58,13 +75,14 @@ export class LoginPage implements OnInit {
 
     let body = {
       email: this.loginObj.email,
-      password: this.loginObj.password
+      password: this.loginObj.password,
+      remember: this.loginObj.remember
     }
 
     const loadingCtrl = await this.loadingController.create({ message: 'Entrando . . .' });
     await loadingCtrl.present();
 
-    await firstValueFrom(this.authService.auth(body, loadingCtrl))
+    await firstValueFrom(this.authService.login(body, loadingCtrl))
 
     return loadingCtrl.dismiss();
 

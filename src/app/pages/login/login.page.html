@@ -33,7 +33,7 @@
         </ion-item>
 
         <div class="horizontal-line">
-          <ion-checkbox labelPlacement="end">Lembrar login</ion-checkbox>
+          <ion-checkbox [(ngModel)]="loginObj.remember" name="remember" labelPlacement="end">Lembrar login</ion-checkbox>
           <p (click)="screen = 'forgetPassword'">Esqueci minha senha</p>
         </div>
 

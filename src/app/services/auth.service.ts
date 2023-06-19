@@ -1,9 +1,8 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { Observable, catchError } from 'rxjs';
+import { Observable, catchError, finalize } from 'rxjs';
 import { FunctionsService } from './functions.service';
 import { NavController } from '@ionic/angular';
-// import { Storage } from '@ionic/storage';
 
 const headers = new HttpHeaders({
   'Content-Type': 'application/json'
@@ -12,6 +11,7 @@ const headers = new HttpHeaders({
 interface ILogin {
   email: string;
   password: string;
+  remember: boolean;
 }
 
 @Injectable({
@@ -28,47 +28,36 @@ export class AuthService implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
-  }
-
-  auth(login: ILogin, loading: any): Observable<any> {
-
-    return new Observable(observable => {
-
-      this.login(login, loading)
-      .subscribe({
-        next: async data => {
-          
-          if (!data.message) {
-
-            this.authUser = data;
-
-            // Guardar senha aq
-            this.navCtrl.navigateForward('/tabs')
-
-            observable.next(data)
-
-          }
-
-        }
-      })
-
-    })
-
+    console.log('aaa')
   }
 
   login(login: ILogin, loading: any): Observable<any> {
-
     const url = 'http://localhost:3000/login';
 
-    return this.http.post<any>(url, { ...login }, { headers } as any).pipe(
-      catchError(err => {
-        console.log(err.error);
-        loading.dismiss();
-        return this.functions.alert('Ops!', '', 'Usuário ou senha incorretos!');
-      })
-    )
+    return new Observable(observable => {
+      this.http.post<any>(url, { ...login }, { headers } as any).pipe(
+        catchError(err => {
+          console.log(err.error);
+          loading.dismiss();
+          return this.functions.alert('Ops!', '', 'Usuário ou senha incorretos!');
+        }),
+        finalize(() => {
+          if (!observable.closed) {
+            observable.complete(); // Completar a Observable quando a chamada de login terminar
+          }
+        })
+      ).subscribe(data => {
+        this.authUser = data;
 
+        // Guardar senha aqui
+        if (login.remember) {
+          window.localStorage.setItem('login', JSON.stringify({ email: login.email, password: login.password }));
+        }
+        this.navCtrl.navigateForward('/tabs');
+
+        observable.next(data);
+      });
+    });
   }
 
   getAuth() {
