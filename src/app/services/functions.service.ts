@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -7,14 +7,27 @@ import { AlertController } from '@ionic/angular';
 export class FunctionsService {
 
   constructor(
-    private alertController: AlertController
+    private alertController: AlertController,
+    private toastController: ToastController
   ) { }
 
-  getUrl() {
+  getUrl(): string {
     return 'http://localhost:3000/';
   }
 
-  async alert(header: string, subHeader: string, message: string) {
+  async toastAlert(position: 'top' | 'middle' | 'bottom', message: string, duration: number = 3000): Promise<void> {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: duration,
+      position: position,
+      icon: 'alert-circle',
+      cssClass: 'toastAlert'
+    });
+
+    await toast.present();
+  }
+
+  async alert(header: string, subHeader: string, message: string): Promise<void> {
 
     const alert = await this.alertController.create({
       header: header,

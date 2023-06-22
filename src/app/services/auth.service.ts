@@ -12,12 +12,15 @@ interface ILogin {
   email: string;
   password: string;
   remember: boolean;
-}
+};
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService implements OnInit {
+
+  url: string;
 
   authUser: any;
 
@@ -25,17 +28,20 @@ export class AuthService implements OnInit {
     public http: HttpClient,
     private functions: FunctionsService,
     private readonly navCtrl: NavController,
-  ) { }
+  ) { 
+
+    this.url = this.functions.getUrl();
+
+  }
 
   ngOnInit(): void {
-    console.log('aaa')
+
   }
 
   login(login: ILogin, loading: any): Observable<any> {
-    const url = 'http://localhost:3000/login';
 
     return new Observable(observable => {
-      this.http.post<any>(url, { ...login }, { headers } as any).pipe(
+      this.http.post<any>(this.url + 'login', { ...login }, { headers } as any).pipe(
         catchError(err => {
           console.log(err.error);
           loading.dismiss();

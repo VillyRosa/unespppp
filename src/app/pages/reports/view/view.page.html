@@ -11,7 +11,7 @@
 
   <ion-list>
     
-    <ion-card button *ngFor="let case of casesFilter">
+    <ion-card button *ngFor="let case of casesFilter" (click)="editCase(case)">
       
       <ion-card-header>
         <ion-card-title>Relatório</ion-card-title>

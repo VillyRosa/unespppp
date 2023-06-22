@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 import { firstValueFrom } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { CasesService } from 'src/app/services/cases.service';
@@ -8,6 +9,7 @@ import { CasesService } from 'src/app/services/cases.service';
   templateUrl: './view.page.html',
   styleUrls: ['./view.page.scss'],
 })
+
 export class ViewPage implements OnInit {
 
   userAuth: any;
@@ -16,20 +18,21 @@ export class ViewPage implements OnInit {
 
   constructor(
     private readonly authService: AuthService,
-    private readonly casesService: CasesService
-    ) { }
+    private readonly casesService: CasesService,
+    private navCtrl: NavController
+    ) { 
+
+  }
     
-  async ngOnInit() {
+  async ngOnInit(): Promise<void> {
 
     this.userAuth = await this.authService.getAuth();
-
-    console.log(this.userAuth)
 
     this.load();
 
   }
 
-  async load() {
+  async load(): Promise<void> {
 
     await firstValueFrom(this.casesService.get())
       .then(data => this.cases = data)
@@ -37,7 +40,13 @@ export class ViewPage implements OnInit {
 
     this.casesFilter = this.cases;
 
-    console.log(this.cases);
+  }
+
+  editCase(aux: any): void {
+
+    this.navCtrl.navigateForward('/reports/insert', {
+      state: aux
+    });
 
   }
 
