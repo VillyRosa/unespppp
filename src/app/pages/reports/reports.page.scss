@@ -2,6 +2,20 @@
 
     width: 100%;
 
+    ion-toolbar {
+        --background: #EAECF5;
+        --border-color: #EAECF5;
+        ion-title {
+            width: 90%;
+            margin: 0 20px;
+            border-bottom: 1px solid #000;
+            color: #000;
+            font-weight: bold;
+            font-size: 30px;
+            text-align: start;
+        }
+    } 
+
     .title {
         width: 100%;
         border-bottom: 1px solid #000;
