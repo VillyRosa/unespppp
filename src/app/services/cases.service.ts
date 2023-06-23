@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { FunctionsService } from './functions.service';
 import { AuthService } from './auth.service';
+import { map } from 'rxjs/operators';
 
 interface createCase {
   latitude: number;
@@ -40,7 +41,17 @@ export class CasesService {
     });
 
   }
-
+  getCases(): Observable<any[]> {
+    return this.http.get<any[]>(this.url, { headers: this.headers }).pipe(
+      map((response: any[]) => {
+        return response.map((caseItem: any) => ({
+          latitude: caseItem.latitude,
+          longitude: caseItem.longitude,
+          status: caseItem.status
+        }));
+      })
+    );
+  }
   get(): Observable<any> {
 
     return this.http.get(this.url, { headers: this.headers })

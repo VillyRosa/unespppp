@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { CasesService } from 'src/app/services/cases.service';
 declare var google: any;
 
 @Component({
@@ -8,26 +9,69 @@ declare var google: any;
 })
 export class MapPage {
 
+ 
   @ViewChild('map', { static: false }) mapElement?: ElementRef;
+  map: any;
 
-  constructor() {}
+  constructor(private casesService: CasesService) {}
 
   ionViewDidEnter() {
     const mapEle = this.mapElement?.nativeElement;
 
     if (mapEle) {
-      const map = new google.maps.Map(mapEle, {
-        center: { lat: -21.2084, lng: -50.4266 }, // Defina o centro do mapa como preferir
-        zoom: 12 // Defina o nível de zoom como preferir
+      this.map = new google.maps.Map(mapEle, {
+        center: { lat: -21.2084, lng: -50.4266 },
+        zoom: 12
       });
 
-      const geojsonUrl = './assets/data/Meus_lugares_aracatuba.geojson'; // Substitua pelo caminho correto para o seu arquivo GeoJSON
+      const geojsonUrl = './assets/data/Meus_lugares_aracatuba.geojson';
 
       const geojsonLayer = new google.maps.Data();
       geojsonLayer.loadGeoJson(geojsonUrl);
-      geojsonLayer.setMap(map);
+      geojsonLayer.setMap(this.map);
+
+      this.casesService.getCases().subscribe(
+        (cases: any[]) => {
+          const mappedCases = cases.map((caseItem) => ({
+            latitude: parseFloat(caseItem.latitude),
+            longitude: parseFloat(caseItem.longitude),
+            status: caseItem.status
+          }));
+          this.displayCasesOnMap(mappedCases);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      
     }
   }
+
+  displayCasesOnMap(cases: any[]) {
+    cases.forEach((caseItem) => {
+      let markerColor = '';
+
+      if (caseItem.status === 'positivo') {
+        markerColor = 'red';
+      } else if (caseItem.status === 'suspeito') {
+        markerColor = 'yellow';
+      } else if (caseItem.status === 'negativo') {
+        markerColor = 'green';
+      }
+
+      const marker = new google.maps.Marker({
+        position: { lat: caseItem.latitude, lng: caseItem.longitude },
+        map: this.map,
+        title: caseItem.status,
+        icon: {
+          path: google.maps.SymbolPath.CIRCLE,
+          fillColor: markerColor,
+          fillOpacity: 1,
+          strokeWeight: 0,
+          scale: 12
+        }
+      });
+    });
+    console.log(cases)
+  }
 }
- 
- 
