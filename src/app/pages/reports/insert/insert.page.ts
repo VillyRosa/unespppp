@@ -19,6 +19,10 @@ export class InsertPage implements OnInit {
 
   screen: 'adress' | 'status' = 'adress';
 
+  userAuth: any;
+
+  canEdit: boolean = true;
+
   case: any = {
     adress: {
       cep: '',
@@ -30,6 +34,8 @@ export class InsertPage implements OnInit {
     longitude: '',
     status: ''
   };
+
+  title: string = '';
 
   state: any;
 
@@ -44,6 +50,7 @@ export class InsertPage implements OnInit {
     private location: Location
   ) { 
 
+    this.userAuth = this.authService.getAuth();
     const navig = this.router.getCurrentNavigation();
     this.state = {};
     this.state = navig?.extras?.state || undefined;
@@ -52,6 +59,11 @@ export class InsertPage implements OnInit {
 
   async ngOnInit(): Promise<void> {
 
+    console.log(this.userAuth)
+    if (this.userAuth.role === 'gestor') this.canEdit = false;
+
+    this.title = this.canEdit ? 'Criar relatório' : 'Visualizar relatório';
+    
     if (this.state !== undefined) {
 
       const loading = await this.loadingController.create({ message: 'Carregando dados . . .' });

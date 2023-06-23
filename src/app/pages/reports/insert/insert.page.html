@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button style="color: #000;" defaultHref="/" text=""></ion-back-button>
     </ion-buttons>
-    <ion-title>Criar relatório</ion-title>
+    <ion-title>{{title}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -25,6 +25,7 @@
          id="cep" 
          name="cep" 
          placeholder="00000-000"
+         [disabled]="!canEdit"
          [brmasker]="{mask:'00000-000', type: 'num', len:9}"
          [(ngModel)]="case.adress.cep"
          (ngModelChange)="searchCep()">
@@ -41,6 +42,7 @@
          id="email" 
          name="email" 
          placeholder="Jardim Nova Amizade"
+         [disabled]="!canEdit"
          [(ngModel)]="case.adress.neighborhood">
         </ion-input>
 
@@ -55,6 +57,7 @@
          id="street" 
          name="street" 
          placeholder="R. José Ferreira Fagundes"
+         [disabled]="!canEdit"
          [(ngModel)]="case.adress.street">
         </ion-input>
 
@@ -69,6 +72,7 @@
          id="number" 
          name="number" 
          placeholder="458"
+         [disabled]="!canEdit"
          [(ngModel)]="case.adress.number">
         </ion-input>
 
@@ -85,7 +89,7 @@
         </ion-button>
       </div>
   
-      <div class="align-left red">
+      <div *ngIf="canEdit" class="align-left red">
         <ion-button>Cancelar</ion-button>
       </div>
 
@@ -100,7 +104,7 @@
     <ion-list>
       
       <ion-item>
-        <ion-select label="Status do caso" placeholder="Status" name="status" [(ngModel)]="case.status">
+        <ion-select label="Status do caso" placeholder="Status" name="status" [disabled]="!canEdit" [(ngModel)]="case.status">
           <ion-select-option value="suspeito">Suspeito</ion-select-option>
           <ion-select-option value="positivo">Positivo</ion-select-option>
           <ion-select-option value="negativo">Negativo</ion-select-option>
@@ -118,7 +122,7 @@
         </ion-button>
       </div>
   
-      <div class="align-right white">
+      <div *ngIf="canEdit" class="align-right white">
         <ion-button (click)="state === undefined ? saveCase() : updateCase()">Finalizar</ion-button>
       </div>
 
