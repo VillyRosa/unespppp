@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { FunctionsService } from './functions.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
 
 interface IChangePassword {
   oldPassword: string;
   newPassword: string;
-  udi: string;
+  repeatPassword: string;
+  uid: string;
 }
 
 @Injectable({
@@ -16,19 +18,28 @@ interface IChangePassword {
 export class UsersService {
 
   url: string = '';
+  headers: HttpHeaders;
 
   constructor(
+    private readonly authService: AuthService,
     private readonly functionsService: FunctionsService,
     private http: HttpClient
   ) { 
 
     this.url = functionsService.getUrl();
 
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${authService.getAuth() !== undefined ? this.authService.getAuth().token : null}`
+    });
+
   }
 
   changePassword(bodyRequest: IChangePassword): Observable<any> {
 
-    return this.http.put(this.url + 'changePassword', bodyRequest)
+    console.log(bodyRequest);
+
+    return this.http.put(this.url + 'changePassword', bodyRequest, { headers: this.headers })
 
   }
 

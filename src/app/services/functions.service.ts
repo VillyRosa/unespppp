@@ -15,13 +15,13 @@ export class FunctionsService {
     return 'http://localhost:3000/';
   }
 
-  async toastAlert(position: 'top' | 'middle' | 'bottom', message: string, duration: number = 3000): Promise<void> {
+  async toastAlert(position: 'top' | 'middle' | 'bottom', message: string, type: string = 'error', duration: number = 3000): Promise<void> {
     const toast = await this.toastController.create({
       message: message,
       duration: duration,
       position: position,
       icon: 'alert-circle',
-      cssClass: 'toastAlert'
+      cssClass: type === 'error' ? 'toastError' : 'toastSuccess'
     });
 
     await toast.present();

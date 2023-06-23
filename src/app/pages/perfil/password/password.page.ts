@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { LoadingController } from '@ionic/angular';
+import { firstValueFrom } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+import { FunctionsService } from 'src/app/services/functions.service';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-password',
@@ -24,7 +28,10 @@ export class PasswordPage implements OnInit {
   };
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private readonly functionsService: FunctionsService,
+    private readonly usersService: UsersService,
+    private loadingController: LoadingController
   ) { 
 
     this.authUser = authService.getAuth();
@@ -68,6 +75,45 @@ export class PasswordPage implements OnInit {
       auxInput.type = 'password';
 
     }
+
+  }
+
+  async changePassword(): Promise<void> {
+
+    // Toast alerts para verificações
+    if (this.form.password === '') return this.functionsService.toastAlert('top', 'Insira sua senha atual!', 'error');
+    if (this.form.newPassword === '') return this.functionsService.toastAlert('top', 'Insira a nova senha!');
+    if (!this.requirementsPassword.letters || !this.requirementsPassword.uppercase || !this.requirementsPassword.number || !this.requirementsPassword.special) return this.functionsService.toastAlert('top', 'A nova senha precisa cumprir todos os requisitos!', 'error');
+    if (this.form.repeatPassword === '') return this.functionsService.toastAlert('top', 'Insira a repetição de senha!', 'error');
+    if (this.form.newPassword !== this.form.repeatPassword) return this.functionsService.toastAlert('top', 'Nova senha e repetição não conferem!', 'error');
+
+    const loading = await this.loadingController.create({ message: 'Alterando senha . . .' });
+    await loading.present();
+
+    let bodyRequest: any = {
+      oldPassword: this.form.password,
+      newPassword: this.form.newPassword,
+      repeatPassword: this.form.repeatPassword,
+      uid: this.authUser.UID
+    };
+    
+    await firstValueFrom(this.usersService.changePassword(bodyRequest))
+      .then(() => {
+        if (window.localStorage.getItem('login')) {
+          const lastStorage = window.localStorage.getItem('login');
+          if (lastStorage) {
+            const lastStorageJson = JSON.parse(lastStorage);
+            window.localStorage.setItem('login', JSON.stringify({ email: lastStorageJson.email, password: this.form.newPassword, remember: lastStorageJson.remember }))
+          }
+        }
+        
+        this.functionsService.toastAlert('top', 'Senha alterada com sucesso!', 'success');
+        this.form.password = '';
+        this.form.newPassword = '';
+        this.form.repeatPassword = '';
+      })
+      .finally(() => loading.dismiss())
+      .catch((err) => this.functionsService.toastAlert('top', err.error.message, 'error'))
 
   }
 

@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class PerfilPage implements OnInit {
 
-  authUser: any;
+  userAuth: any;
 
   leave: boolean = false;
 
@@ -24,7 +24,7 @@ export class PerfilPage implements OnInit {
     const loading = await this.loadingController.create({  message: 'Carregando . . .' });
     await loading.present();
 
-    this.authUser = await this.authService.getAuth();
+    this.userAuth = await this.authService.getAuth();
 
     loading.dismiss();
 
@@ -35,10 +35,10 @@ export class PerfilPage implements OnInit {
   }
 
   leaveAcount() {
-
-    window.localStorage.removeItem('login');
-
-    this.navCtrl.navigateForward('');
+    this.authService.authUser = undefined;
+    window.localStorage.clear();
+    this.navCtrl.navigateForward('/login');
+    this.leave = false;
   }
 
 }

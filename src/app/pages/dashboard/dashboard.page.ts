@@ -25,8 +25,6 @@ export class DashboardPage implements OnInit {
 
     this.authUser = await this.authService.getAuth();
 
-    console.log(this.authUser);
-
     this.load();    
 
   }

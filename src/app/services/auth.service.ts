@@ -57,7 +57,7 @@ export class AuthService implements OnInit {
 
         // Guardar senha aqui
         if (login.remember) {
-          window.localStorage.setItem('login', JSON.stringify({ email: login.email, password: login.password }));
+          window.localStorage.setItem('login', JSON.stringify({ email: login.email, password: login.password, remember: login.remember }));
         }
         this.navCtrl.navigateForward('/tabs');
 

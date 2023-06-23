@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController, NavController, ToastController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
-import { firstValueFrom, map } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { FunctionsService } from 'src/app/services/functions.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -44,28 +45,14 @@ export class LoginPage implements OnInit {
   constructor(
     private readonly functionsService: FunctionsService,
     private authService: AuthService,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private router: Router
   ) {
 
   }
 
   ngOnInit(): void {
 
-    this.load();
-
-  }
-
-  async load() {
-    if (window.localStorage.getItem('login') !== undefined) {
-      let aux: any = window.localStorage.getItem('login');
-      if (aux !== null) {
-        aux = JSON.parse(aux);
-        if (aux) {
-          aux.remember = true;
-          await firstValueFrom(this.authService.login(aux, 'awd'));
-        }
-      }
-    }
   }
 
   async login() {
@@ -83,6 +70,11 @@ export class LoginPage implements OnInit {
     await loadingCtrl.present();
 
     await firstValueFrom(this.authService.login(body, loadingCtrl))
+      .then(() => {
+        this.loginObj.email = undefined;
+        this.loginObj.password = undefined;
+        this.loginObj.remeber = false;
+      })
 
     return loadingCtrl.dismiss();
 
@@ -108,6 +100,13 @@ export class LoginPage implements OnInit {
       auxInput.type = 'password';
 
     }
+
+  }
+
+  visitAcess() {
+
+    window.localStorage.setItem('visitAcess', 'true');
+    this.router.navigate(['/tabs'])
 
   }
 
