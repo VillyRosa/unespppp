@@ -44,7 +44,7 @@ export class ViewPage implements OnInit {
 
   editCase(aux: any): void {
 
-    this.navCtrl.navigateForward('/reports/insert', {
+    this.navCtrl.navigateForward('tabs/reports/insert', {
       state: aux
     });
 

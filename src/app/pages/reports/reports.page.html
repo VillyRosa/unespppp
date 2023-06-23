@@ -8,7 +8,7 @@
 
   <div class="buttons">
 
-    <div class="button" routerLink="insert">
+    <div *ngIf="userAuth.role === 'supervisor' || userAuth.role === 'admin'" class="button" routerLink="insert">
       <ion-icon name="document-text-outline"></ion-icon>
       Realizar relatório
       <ion-icon name="arrow-forward"></ion-icon>

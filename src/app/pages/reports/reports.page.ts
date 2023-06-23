@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-reports',
@@ -7,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportsPage implements OnInit {
 
-  constructor() { }
+  userAuth: any;
+
+  constructor(
+    authService: AuthService
+  ) { 
+    this.userAuth = authService.getAuth();
+  }
 
   ngOnInit() {
   }
